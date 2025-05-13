@@ -5,7 +5,7 @@ const updateTermcondition = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         updateTermcondition: builder.mutation({
             query: (data) => ({
-                url: `/info/terms-services`,
+                url: `/info/terms-condition`,
                 method: 'POST',
                 body: data
             }),
