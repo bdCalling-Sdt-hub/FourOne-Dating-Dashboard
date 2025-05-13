@@ -1,25 +1,30 @@
 import React, { useState } from "react";
 import { Modal } from "antd";
+import { useCreateSubscriptionMutation, useGetSubscriptionQuery, useUpdateSubscriptionMutation } from "../redux/features/subscription/subscription";
+import toast from "react-hot-toast";
+import { ToastContainer } from "react-toastify";
 
 const ViewSubscription = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isEditMode, setIsEditMode] = useState(false);
     const [currentSubscription, setCurrentSubscription] = useState(null);
     const [subscriptionData, setSubscriptionData] = useState({
-        name: "",
-        fee: "",
-        validity: "",
+        title: "",
+        amount: "",
+        limitation: "",
     });
 
-    const [subscriptions, setSubscriptions] = useState([
-        { id: "01", name: "Free Trial", fee: "$0.00", validity: "1 Day" },
-        { id: "02", name: "Four:One Premium", fee: "$14.99", validity: "Unlimited" },
-    ]);
+    const { data } = useGetSubscriptionQuery();
+    const subscriptions = data?.data?.attributes?.results;
+    console.log(subscriptions);
+
+    const [createSubscription] = useCreateSubscriptionMutation(); // ✅ Create Subscription
+    const [updateSubscription] = useUpdateSubscriptionMutation();
 
     // ✅ **Open Modal for Add**
     const showAddModal = () => {
         setIsEditMode(false);
-        setSubscriptionData({ name: "", fee: "", validity: "" });
+        setSubscriptionData({ title: "", amount: "", limitation: "" });
         setIsModalOpen(true);
     };
 
@@ -38,25 +43,27 @@ const ViewSubscription = () => {
     };
 
     // ✅ **Handle Add or Update Subscription**
-    const handleSave = () => {
-        if (!subscriptionData.name || !subscriptionData.fee || !subscriptionData.validity) {
-            alert("Please fill all fields!");
+    const handleSave = async () => {
+        if (!subscriptionData.title || !subscriptionData.amount || !subscriptionData.limitation) {
+            toast.error("Please fill all fields!");
+            setIsModalOpen(false);
             return;
         }
 
         if (isEditMode) {
             // ✅ Update existing subscription
-            setSubscriptions((prev) =>
-                prev.map((sub) =>
-                    sub.id === currentSubscription.id ? { ...sub, ...subscriptionData } : sub
-                )
-            );
+            const res = await updateSubscription({ data: subscriptionData, id: currentSubscription.id });
+            console.log(res);
+            if (res?.data?.code == 200) {
+                toast.success(res?.data?.message);
+            }
         } else {
             // ✅ Add new subscription
-            setSubscriptions((prev) => [
-                ...prev,
-                { id: (prev.length + 1).toString(), ...subscriptionData },
-            ]);
+            const res = await createSubscription(subscriptionData); // Pass subscriptionData directly
+            console.log(res);
+            if (res?.data?.code == 201) {
+                toast.success(res?.data?.message);
+            }
         }
 
         setIsModalOpen(false);
@@ -64,6 +71,7 @@ const ViewSubscription = () => {
 
     return (
         <div className="p-6 min-h-screen">
+            <ToastContainer position="top-center" theme="colored" />
             {/* ✅ Header Section */}
             <div className="flex justify-between items-center mb-5">
                 <h2 className="text-2xl font-semibold text-[#1a1a1a]">All Subscriptions</h2>
@@ -85,12 +93,12 @@ const ViewSubscription = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {subscriptions.map((sub, index) => (
+                        {subscriptions?.map((sub, index) => (
                             <tr key={index} className="border-b hover:bg-gray-100">
                                 <td className="px-4 py-3">{sub.id}</td>
-                                <td className="px-4 py-3">{sub.name}</td>
-                                <td className="px-4 py-3">{sub.fee}</td>
-                                <td className="px-4 py-3">{sub.validity}</td>
+                                <td className="px-4 py-3">{sub.title}</td>
+                                <td className="px-4 py-3">{sub.amount}$</td>
+                                <td className="px-4 py-3">{sub.limitation}</td>
                                 <td className="px-4 py-3">
                                     <button onClick={() => showEditModal(sub)} className="text-[#5c3c92] font-semibold">
                                         Edit
@@ -108,36 +116,47 @@ const ViewSubscription = () => {
                     <div className="mb-4">
                         <label className="block text-gray-700 font-semibold mb-2">Subscription Name:</label>
                         <input
-                            name="name"
+                            name="title" // Corrected name to match the subscriptionData field
                             placeholder="Enter Subscription Name"
                             type="text"
                             className="w-full p-2 border border-gray-300 rounded"
-                            value={subscriptionData.name}
+                            value={subscriptionData.title}
                             onChange={handleChange}
                         />
                     </div>
                     <div className="mb-4">
                         <label className="block text-gray-700 font-semibold mb-2">Subscription Fee:</label>
                         <input
-                            name="fee"
+                            name="amount" // Corrected name to match the subscriptionData field
                             placeholder="Enter Subscription Fee"
                             type="text"
                             className="w-full p-2 border border-gray-300 rounded"
-                            value={subscriptionData.fee}
+                            value={subscriptionData.amount}
                             onChange={handleChange}
                         />
                     </div>
-                    <div className="mb-4">
+                    {/* <div className="mb-4">
                         <label className="block text-gray-700 font-semibold mb-2">Validity:</label>
                         <input
-                            name="validity"
+                            name="limitation" // Corrected name to match the subscriptionData field
                             placeholder="Enter Validity"
                             type="text"
                             className="w-full p-2 border border-gray-300 rounded"
-                            value={subscriptionData.validity}
+                            value={subscriptionData.limitation}
                             onChange={handleChange}
                         />
+                    </div> */}
+
+                    <div>
+                        <label className="block text-gray-700 font-semibold mb-2">Limitation:</label>
+                        <select className="w-full p-2 border border-gray-300 rounded mb-2" onChange={handleChange} value={subscriptionData.limitation} name="limitation" id="">
+                            <option defaultChecked disabled value="">Select Validity</option>
+                            <option value="annual">Annual</option>
+                            <option value="monthly">Monthly</option>
+                            <option value="weekly">Weekly</option>
+                        </select>
                     </div>
+
                     <div className="flex justify-center items-center">
                         <button onClick={handleSave} className="bg-[#5c3c92] text-white px-5 py-3 rounded-md text-sm">
                             {isEditMode ? "Update" : "Create"}

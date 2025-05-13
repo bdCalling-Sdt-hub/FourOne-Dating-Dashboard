@@ -9,45 +9,15 @@ import moment from "moment";
 import { Link } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 
-// ✅ **Dummy User Data**
-const dummyUsers = [
-  {
-    id: 1,
-    fullName: "John Doe",
-    email: "johndoe@email.com",
-    phoneNumber: "0123456789",
-    createdAt: "2024-04-10",
-    subscription: "Premium",
-    profileImage: "/All/logo.png",
-  },
-  {
-    id: 2,
-    fullName: "Jane Smith",
-    email: "janesmith@email.com",
-    phoneNumber: "9876543210",
-    createdAt: "2024-04-12",
-    subscription: "Free",
-    profileImage: "/All/logo.png",
-  },
-  {
-    id: 3,
-    fullName: "Michael Brown",
-    email: "michael@email.com",
-    phoneNumber: "1239874560",
-    createdAt: "2024-04-15",
-    subscription: "Standard",
-    profileImage: "/All/logo.png",
-  },
-];
 
-const RecentUser = () => {
+const RecentUser = ({ allUsers }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedDate, setSelectedDate] = useState(null);
 
   // ✅ **Search & Date Filtering**
-  const filteredUsers = dummyUsers.filter((user) => {
+  const filteredUsers = allUsers?.filter((user) => {
     const matchesSearch =
       searchQuery === "" ||
       user.fullName.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -105,23 +75,23 @@ const RecentUser = () => {
               <th className="px-4 py-5 text-left">S. No.</th>
               <th className="px-4 py-5 text-left">Name</th>
               <th className="px-4 py-5 text-left">Email</th>
-              <th className="px-4 py-5 text-left">Phone Number</th>
+              {/* <th className="px-4 py-5 text-left">Phone Number</th> */}
               <th className="px-4 py-5 text-left">Joining Date</th>
-              <th className="px-4 py-5 text-left">Subscription</th>
+              {/* <th className="px-4 py-5 text-left">Subscription</th> */}
             </tr>
           </thead>
           <tbody>
-            {filteredUsers.map((user, index) => (
+            {filteredUsers?.map((user, index) => (
               <tr key={user.id} className="border-b hover:bg-gray-100">
                 <td className="px-4 py-3">{index + 1}</td>
                 <td className="px-4 py-3 flex items-center gap-2">
-                  <img src={user.profileImage} alt="User" className="w-10 h-10 rounded-full" />
+                  {/* <img src={user.profileImage} alt="User" className="w-10 h-10 rounded-full" /> */}
                   <span className="font-semibold">{user.fullName}</span>
                 </td>
                 <td className="px-4 py-3">{user.email}</td>
-                <td className="px-4 py-3">{user.phoneNumber || "N/A"}</td>
+                {/* <td className="px-4 py-3">{user.phoneNumber || "N/A"}</td> */}
                 <td className="px-4 py-3">{moment(user.createdAt).format("DD MMMM, YYYY")}</td>
-                <td className="px-4 py-3">{user.subscription}</td>
+                {/* <td className="px-4 py-3">{user.subscription}</td> */}
 
               </tr>
             ))}

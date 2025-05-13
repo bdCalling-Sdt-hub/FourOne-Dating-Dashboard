@@ -17,14 +17,14 @@ const VerifyOtp = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const [error, setError] = useState("");
-  const email = queryParams.get("email");
+  const email = localStorage.getItem("email");
 
   const [otp, setOtp] = useState("");
   const navigate = useNavigate();
   const [verifyOtp] = useVerifyOtp2Mutation();
 
   const verifyData = {
-    oneTimeCode: otp,
+    code: otp,
     email: email,
   };
 
@@ -52,10 +52,11 @@ const VerifyOtp = () => {
     <div className="text-white">
       <Toaster position="top-center" reverseOrder={false} />
       <div className="md:grid grid-cols-2 min-h-[80vh]">
-        <div className="flex items-center justify-center h-screen relative">
+
+        <div className="hidden md:flex items-center justify-center h-screen relative">
           <img className="absolute top-0 left-0" src="/All/login-1.png" alt="" />
           <div className="bg-[#d4b2ff] w-[200px] h-[200px] flex items-center justify-center">
-            <h3 className="text-5xl ">Logo</h3>
+            <img className="w-full" src="/All/fourOneLogo.jpg" alt="" />
           </div>
           <img className="absolute bottom-0 right-0" src="/All/login-2.png" alt="" />
         </div>

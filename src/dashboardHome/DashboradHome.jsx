@@ -4,28 +4,19 @@ import Barchart from "./Barchart";
 import RecentUser from "./RecentUser";
 import Patient from "../../public/Dashboard/Patient.png";
 import { useAllUsersQuery } from "../redux/features/users/users";
-import { useAllDashboardInfoQuery } from "../redux/features/admin/getDashboardInfo";
+import { useAllDashboardInfoQuery, useSevenDaysQuery } from "../redux/features/admin/getDashboardInfo";
 import moment from "moment";
 import { FaUsers } from "react-icons/fa6";
 
 const DashboardHome = () => {
-  const { data: userData, isLoading, error } = useAllUsersQuery({})
-  const user = userData?.data?.attributes?.results;
-  const last7Days = moment().subtract(7, "days").format("YYYY-MM-DD");
 
-  const last7DaysUsers = user?.filter((u) =>
-    moment(u?.createdAt).isSameOrAfter(last7Days, "day")
-  );
+  const day = 7;
+  const { data: allDashboardInfoData } = useAllDashboardInfoQuery();
+  const { data: allDashboardInfo, isLoading: dashboardLoading } = useSevenDaysQuery({ day });
 
-  console.log(last7DaysUsers?.length);
-
-  const { data: allDashboardInfo, isLoading: dashboardLoading } = useAllDashboardInfoQuery();
-
-  console.log(allDashboardInfo?.data?.attributes?.totalAdmin);
-  console.log(allDashboardInfo?.data?.attributes?.totalUser);
-
-  const totalAdmin = allDashboardInfo?.data?.attributes?.totalAdmin;
-  const totalUser = allDashboardInfo?.data?.attributes?.totalUser;
+  const totalUser = allDashboardInfo?.data?.attributes;
+  const userData = allDashboardInfoData?.data?.attributes;
+  console.log(userData);
 
 
   return (
@@ -42,7 +33,7 @@ const DashboardHome = () => {
               Total Users
             </h2>
             <h2 className="text-2xl font-medium text-[#1a1a1a]">
-              {totalAdmin ? totalAdmin : "1200"}
+              {userData?.totalUser ? userData?.totalUser : "00"}
             </h2>
           </div>
         </div>
@@ -54,7 +45,7 @@ const DashboardHome = () => {
               Recent Users
             </h2>
             <h2 className="text-2xl font-medium text-[#1a1a1a]">
-              {totalAdmin ? totalAdmin : "800"}
+              {totalUser?.totalUser ? totalUser?.totalUser : "00"}
             </h2>
           </div>
         </div>
@@ -64,7 +55,7 @@ const DashboardHome = () => {
       </div>
 
       {/* Recent Users List */}
-      <RecentUser state={"Recent Users"} />
+      <RecentUser allUsers={userData?.recentUserData} state={"Recent Users"} />
       {/* <RecentUser state={"Total Users"} /> */}
     </div>
   );

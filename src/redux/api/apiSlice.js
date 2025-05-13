@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import url from "./baseUrl";
 
 // baseUrl: "https://api.guidegadget.com/api/v1",
 // http://192.168.10.168:5050
@@ -7,9 +8,11 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     // baseUrl: "https://api.guidegadget.com/api/v1",
     // baseUrl: "https://shadat9090.sobhoy.com/api/v1",
+    baseUrl: `${url}/api/v1`,
     prepareHeaders: (headers, { getState }) => {
       const token = localStorage.getItem("token");
       // console.log("9 baseApi", token);
+
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
       }
@@ -17,6 +20,6 @@ export const apiSlice = createApi({
     },
   }),
 
-  tagTypes: ["User", "Admin", "Equipment", "Contactus", "Settings", "Terms", "Waiver", "Licence", "Manifest"],
+  tagTypes: ["User", "Admin", "Equipment", "Contactus", "Settings", "Terms", "Waiver", "Licence", "Manifest", "Subscription"],
   endpoints: () => ({}),
 });

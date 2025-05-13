@@ -25,6 +25,8 @@ const Settings = () => {
   const [tempEmail, setTempEmail] = useState('')
 
 
+  const email = localStorage.getItem('email')
+
   console.log(otp, tempEmail)
   // console.log(form)
 
@@ -60,70 +62,73 @@ const Settings = () => {
 
       try {
         const res = await changePassword(allFormData).unwrap();
+
         toast.success(res?.message);
         values.newPassword = '';
         values.currentPassword = '';
         values.confirmYourPassword = '';
-
         setIsModalOpen(false);
+
+
+
       } catch (error) {
         console.log(error);
         toast.error(error?.data?.message);
       }
     }
-    if (!isOtpSent) {
-      const email = { email: values?.email };
-      setTempEmail(values?.email)
-      try {
-        const res = await forgotpassword(email).unwrap();
-        toast.success(res?.message);
-        setIsOtpSent(true);
-      } catch (error) {
-        console.log(error);
-        toast.error(error?.data?.message);
-      }
-    }
+    // if (!isOtpSent) {
+    //   const email = { email: values?.email };
+    //   setTempEmail(values?.email)
+    //   try {
+    //     const res = await forgotpassword(email).unwrap();
+    //     toast.success(res?.message);
+    //     setIsOtpSent(true);
+    //   } catch (error) {
+    //     console.log(error);
+    //     toast.error(error?.data?.message);
+    //   }
+    // }
 
-    if (!isOtpVerified) {
+    // if (!isOtpVerified) {
 
-      if (otp.length === 6) {
-        const data = {
-          email: tempEmail,
-          oneTimeCode: otp,
-        };
-        try {
-          const res = await verifyOtp(data).unwrap();
-          toast.success(res?.message);
-          // setIsModalOpen(false);
-          setIsOtpVerified(true);
-        } catch (error) {
-          console.log(error);
-          toast.error(error?.data?.message);
-        }
-      }
+    //   if (otp.length === 6) {
+    //     const data = {
+    //       email: tempEmail,
+    //       oneTimeCode: otp,
+    //     };
+    //     try {
+    //       const res = await verifyOtp(data).unwrap();
+    //       toast.success(res?.message);
+    //       // setIsModalOpen(false);
+    //       setIsOtpVerified(true);
+    //     } catch (error) {
+    //       console.log(error);
+    //       toast.error(error?.data?.message);
+    //     }
+    //   }
+    // }
 
 
-    }
-    if (isOtpVerified) {
+    // if (isOtpVerified) {
 
-      if (values.newPassword !== values.confirmPassword) {
-        return toast.error('New Password & confirm Password do not match');
-      }
+    //   if (values.newPassword !== values.confirmPassword) {
+    //     return toast.error('New Password & confirm Password do not match');
+    //   }
 
-      const data = {
-        email: tempEmail,
-        password: values.newPassword,
-      };
-      try {
-        const res = await updatePassword(data).unwrap();
-        toast.success(res?.message);
-        setIsOtpVerified(false);
-        setIsModalOpen(false);
-      } catch (error) {
-        console.log(error);
-        toast.error(error?.data?.message);
-      }
-    }
+    //   const data = {
+    //     email: tempEmail,
+    //     password: values.newPassword,
+    //   };
+    //   try {
+    //     const res = await updatePassword(data).unwrap();
+    //     toast.success(res?.message);
+    //     setIsOtpVerified(false);
+    //     setIsModalOpen(false);
+    //   } catch (error) {
+    //     console.log(error);
+    //     toast.error(error?.data?.message);
+    //   }
+    // }
 
 
   };
@@ -395,7 +400,7 @@ const Settings = () => {
                         className="rounded-lg border-gray-300 focus:ring-2 focus:ring-purple-500 h-12"
                       />
                     </Form.Item>
-                    <Form.Item className="text-center">
+                    {/* <Form.Item className="text-center">
                       <button
                         type="button"
                         onClick={() => setIsForgotPassword(true)}
@@ -403,7 +408,7 @@ const Settings = () => {
                       >
                         Forgot Password?
                       </button>
-                    </Form.Item>
+                    </Form.Item> */}
                     <Form.Item>
                       <button
                         type="submit"

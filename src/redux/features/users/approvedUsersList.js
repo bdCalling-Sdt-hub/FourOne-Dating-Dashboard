@@ -18,8 +18,8 @@ import { apiSlice } from "../../api/apiSlice";
 const getApprovedUsers = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getApprovedUsers: builder.query({
-            query: ({ name = "", date }) => ({
-                url: `/admin-userList/showAllVerifyUser?name=${name}&date=${date}`,
+            query: () => ({
+                url: `/admin/users/all?sortBy=createdAt:desc`,///admin/users/all?sortBy=createdAt:desc
                 method: "GET",
             }),
         }),

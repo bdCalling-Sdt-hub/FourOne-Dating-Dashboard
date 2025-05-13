@@ -9,10 +9,16 @@ const allDashboardInfo = apiSlice.injectEndpoints({
                 url: `/admin/dashboard/status`,
                 method: "GET",
             })
-        })
+        }),
+        sevenDays: builder.query({
+            query: () => ({
+                url: `/admin/dashboard/status?day=7`,
+                method: "GET",
+            })
+        }),
     })
 })
 
-export const { useAllDashboardInfoQuery } = allDashboardInfo;
+export const { useAllDashboardInfoQuery, useSevenDaysQuery } = allDashboardInfo;
 
 

@@ -40,15 +40,16 @@ const Login = () => {
       <Toaster reverseOrder={false} />
 
       <div className="grid grid-cols-1 md:grid-cols-2">
-        <div className="flex items-center justify-center h-screen relative">
+        <div className="hidden md:flex items-center justify-center h-screen relative">
           <img className="absolute top-0 left-0" src="/All/login-1.png" alt="" />
           <div className="bg-[#d4b2ff] w-[200px] h-[200px] flex items-center justify-center">
-            <h3 className="text-5xl ">Logo</h3>
+            {/* <h3 className="text-5xl ">Logo</h3> */}
+            <img className="w-full" src="/All/fourOneLogo.jpg" alt="" />
           </div>
           <img className="absolute bottom-0 right-0" src="/All/login-2.png" alt="" />
         </div>
         <div className="bg-[url('/All/login-bg.png')] h-screen w-full flex items-center bg-no-repeat bg-cover bg-center">
-          <form className="w-2/3 p-5 bg-[#00000090] rounded-2xl mx-auto" action="">
+          <form onSubmit={onSubmit} className="w-2/3 p-5 bg-[#00000090] rounded-2xl mx-auto" action="">
             <h2 className="mb-5 text-3xl font-semibold text-white text-center">Sign In</h2>
             <label className="block mb-6" htmlFor="">
               <span className="text-white mb-2 block">Email</span>

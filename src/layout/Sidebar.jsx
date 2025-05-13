@@ -75,7 +75,7 @@ const Sidebar = () => {
               to="home"
               className={({ isActive }) =>
                 isActive
-                  ? "flex cursor-pointer items-center text-[18px] font-medium p-[10px] border-l-4 border-[#ffffff] text-[#fff] md:pl-10"
+                  ? "flex cursor-pointer items-center text-[18px] font-medium p-[10px] border-l-4 border-[#ffffff] bg-[#9a4ed4] text-[#fff] md:pl-10"
                   : "flex text-[#ffffff] cursor-pointer items-center text-[18px] font-medium border-l-4 border-transparent p-[10px] md:pl-10"
               }
             >
@@ -87,7 +87,7 @@ const Sidebar = () => {
               to="userslist"
               className={({ isActive }) =>
                 isActive
-                  ? "flex cursor-pointer items-center text-[18px] font-medium p-[10px] border-l-4 border-[#ffffff] text-[#fff] md:pl-10"
+                  ? "flex cursor-pointer items-center text-[18px] font-medium p-[10px] border-l-4  bg-[#9a4ed4]  border-[#ffffff] text-[#fff] md:pl-10"
                   : "flex text-[#ffffff] cursor-pointer items-center text-[18px] font-medium  border-l-4 border-transparent p-[10px] md:pl-10"
               }
             >
@@ -111,7 +111,7 @@ const Sidebar = () => {
               to="subscription"
               className={({ isActive }) =>
                 isActive
-                  ? "flex cursor-pointer items-center text-[18px] font-medium p-[10px] border-l-4 border-[#ffffff] text-[#fff] md:pl-10"
+                  ? "flex cursor-pointer items-center text-[18px] font-medium p-[10px] border-l-4  bg-[#9a4ed4]  border-[#ffffff] text-[#fff] md:pl-10"
                   : "flex text-[#ffffff] cursor-pointer items-center text-[18px] font-medium border-l-4 border-transparent p-[10px] md:pl-10"
               }
             >
@@ -146,7 +146,7 @@ const Sidebar = () => {
               to="settings"
               className={({ isActive }) =>
                 isActive
-                  ? "flex cursor-pointer items-center text-[18px] font-medium p-[10px] border-l-4 border-[#ffffff] text-[#fff] md:pl-10"
+                  ? "flex cursor-pointer items-center text-[18px] font-medium p-[10px] border-l-4  bg-[#9a4ed4]  border-[#ffffff] text-[#fff] md:pl-10"
                   : "flex text-[#ffffff] cursor-pointer items-center text-[18px] font-medium border-l-4 border-transparent p-[10px] md:pl-10"
               }
             >
