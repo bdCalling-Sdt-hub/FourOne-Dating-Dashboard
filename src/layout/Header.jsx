@@ -141,10 +141,10 @@ const Header = () => {
         </div>
         <Link to={"/dashboard/profile"} className=" lg:col-span-1 flex items-center  md:justify-end sm:flex-row flex-col gap-5  p-5 min-w-96 cursor-pointer">
           <div className="text-right ">
-            <h3 className="text-2xl font-semibold ">{profile?.data?.attributes?.fullName}</h3>
-            <p className="font-semibold">{profile?.data?.attributes?.role}</p>
+            <h3 className="text-2xl font-semibold ">{profile?.data?.attributes?.user?.fullName}</h3>
+            <p className="font-semibold">{profile?.data?.attributes?.user?.role}</p>
           </div>
-          <img className="w-14  rounded-full object-cover" src={profile?.data?.attributes?.profileImage ? `${baseUrl}${profile?.data?.attributes?.profileImage}` : '/Dashboard/User_Profile.png'} alt="Profile" />
+          <img className="w-14  rounded-full object-cover" src={profile?.data?.attributes?.user?.profileImage ? `${baseUrl}${profile?.data?.attributes?.user?.profileImage}` : '/Dashboard/User_Profile.png'} alt="Profile" />
         </Link>
       </div>
 

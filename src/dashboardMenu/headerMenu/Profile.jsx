@@ -9,7 +9,7 @@ const Profile = () => {
   const navigate = useNavigate();
 
   const { data: profile, isLoading } = useGetProfileQuery();
-  console.log(profile?.data?.attributes);
+  console.log(profile?.data?.attributes?.user);
 
   const imageUrl = url;
 
@@ -20,21 +20,21 @@ const Profile = () => {
           <img
             className="w-40 h-40 border p-2 rounded-full"
             src={
-              profile?.data?.attributes?.profileImage
-                ? `${imageUrl}${profile?.data?.attributes?.profileImage}`
+              profile?.data?.attributes?.user?.profileImage
+                ? `${imageUrl}${profile?.data?.attributes?.user?.profileImage}`
                 : '/Dashboard/User_Profile.png'
             }
             alt="User Profile"
           />
           <div className="flex flex-col justify-center items-center text-center">
             <h1 className="text-2xl font-medium">
-              {profile?.data?.attributes?.fullName
-                ? profile?.data?.attributes?.fullName
+              {profile?.data?.attributes?.user?.fullName
+                ? profile?.data?.attributes?.user?.fullName
                 : "test"}
             </h1>
             <p className="text-lg md:text-xl">
-              {profile?.data?.attributes?.role
-                ? profile?.data?.attributes?.role
+              {profile?.data?.attributes?.user?.role
+                ? profile?.data?.attributes?.user?.role
                 : "admin"}
             </p>
           </div>
@@ -52,7 +52,7 @@ const Profile = () => {
                 </label>
                 <Input
                   placeholder="First name"
-                  value={profile?.data?.attributes?.fullName}
+                  value={profile?.data?.attributes?.user?.fullName}
                   className="p-4 cursor-pointer text-lg md:text-xl bg-[#ebf5f5] text-black rounded w-full mt-3 outline-none "
                   type="text"
                   readOnly
@@ -66,7 +66,7 @@ const Profile = () => {
               </label>
               <Input
                 placeholder="Email"
-                value={profile?.data?.attributes?.email}
+                value={profile?.data?.attributes?.user?.email}
                 className="p-4 text-lg md:text-xl bg-[#ebf5f5] rounded w-full mt-3 outline-none  "
                 type="text"
                 readOnly
@@ -79,7 +79,7 @@ const Profile = () => {
               </label>
               <Input
                 placeholder="Phone"
-                value={profile?.data?.attributes?.phoneNumber}
+                value={profile?.data?.attributes?.user?.phoneNumber}
                 className="p-4 text-lg md:text-xl bg-[#ebf5f5] rounded w-full mt-3 outline-none"
                 type="text"
                 readOnly

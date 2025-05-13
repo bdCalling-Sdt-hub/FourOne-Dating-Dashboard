@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Checkbox } from "antd"; // Keeping Ant Design Checkbox for styling consistency
 import toast, { Toaster } from "react-hot-toast";
@@ -13,6 +13,13 @@ const Login = () => {
   const [error, setError] = useState("");
   const [adminLogin, { isLoading }] = useAdminLoginMutation();
 
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      navigate("/dashboard/home");
+    }
+  }, [navigate]);
+
+
   // Handle Form Submission
   const onSubmit = async (e) => {
     e.preventDefault(); // Prevent default form refresh
@@ -22,8 +29,10 @@ const Login = () => {
       const res = await adminLogin({ email, password }).unwrap();
       console.log(res);
       if (res?.code === 200) {
-        console.log(res?.data?.tokens);
+
+
         toast.success(res?.message);
+        localStorage.setItem("email", email);
         localStorage.setItem("token", res?.data?.attributes?.tokens?.access?.token);
         localStorage.setItem("user", JSON.stringify(res?.data));
         setTimeout(() => navigate("/dashboard/home"), 500);

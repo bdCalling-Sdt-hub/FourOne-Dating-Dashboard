@@ -47,6 +47,7 @@ const Sidebar = () => {
       if (result.isConfirmed) {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
+        localStorage.removeItem("email");
 
         Swal.fire({
           title: "Logged Out!",

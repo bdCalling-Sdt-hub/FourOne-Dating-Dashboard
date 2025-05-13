@@ -5,7 +5,7 @@ import User_Profile from "../../../public/Dashboard/User_Profile.png";
 import { useGetProfileQuery, useUpdatePrifileMutation } from "../../redux/features/profile/profile";
 import url from "../../redux/api/baseUrl";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { Toaster } from "react-hot-toast";
 
@@ -17,7 +17,7 @@ const EditProfile = () => {
   const baseUrl = url;
 
   const [imageUrl, setImageUrl] = useState(
-    userProfileData?.profileImage ? `${baseUrl}${userProfileData.profileImage}` : User_Profile
+    userProfileData?.user?.profileImage ? `${baseUrl}${userProfileData?.user?.profileImage}` : User_Profile
   );
 
   // Handle image upload and preview
@@ -40,6 +40,8 @@ const EditProfile = () => {
   };
 
 
+  const navigate = useNavigate();
+
   const handleSave = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -58,6 +60,9 @@ const EditProfile = () => {
       console.log(res);
       if (res?.code == 200) {
         toast.success(res?.message);
+        setTimeout(() => {
+          navigate("/dashboard/profile");
+        }, 500);
       }
 
     } catch (error) {
@@ -109,8 +114,8 @@ const EditProfile = () => {
               </Upload>
             </div>
             <div className="text-center mt-6">
-              <h1 className="text-2xl font-medium">{userProfileData?.fullName || "Your Name"}</h1>
-              <p className="text-lg">{userProfileData?.role || "User"}</p>
+              <h1 className="text-2xl font-medium">{userProfileData?.user?.fullName || "Your Name"}</h1>
+              <p className="text-lg">{userProfileData?.user?.role || "User"}</p>
             </div>
           </div>
 
@@ -123,7 +128,7 @@ const EditProfile = () => {
                 <input
                   type="text"
                   name="fullName"
-                  defaultValue={userProfileData?.fullName || ""}
+                  defaultValue={userProfileData?.user?.fullName || ""}
                   className="p-4 rounded-lg border-gray-300 bg-gray-100 w-full mt-3"
                 />
               </div>
@@ -134,7 +139,7 @@ const EditProfile = () => {
                 <input
                   type="email"
                   name="email"
-                  value={userProfileData?.email || ""}
+                  value={userProfileData?.user?.email || ""}
                   className="p-4 rounded-lg border-gray-300 bg-gray-100 w-full mt-3"
                   readOnly
                 />
@@ -146,7 +151,7 @@ const EditProfile = () => {
                 <input
                   type="tel"
                   name="phoneNumber"
-                  defaultValue={userProfileData?.phoneNumber || ""}
+                  defaultValue={userProfileData?.user?.phoneNumber || ""}
                   className="p-4 rounded-lg border-gray-300 bg-gray-100 w-full mt-3"
                 />
               </div>

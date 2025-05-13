@@ -25,26 +25,26 @@ const DashboardHome = () => {
       {/* <Barchart /> */}
       <div className="grid sm:grid-cols-1 lg:grid-cols-4 sm:gap-5">
 
-        <div className="mt-5 border border-primary sm:p-10 p-5 rounded-xl flex sm:flex-col md:flex-row items-center gap-8">
+        <div className="mt-5 border border-[#f5edff] sm:p-10 p-5 rounded-xl flex sm:flex-col md:flex-row items-center gap-4">
           {/* <img src={Patient} alt="Total Users" className="w-16 sm:w-20 md:w-24" /> */}
           <FaUsers className="text-primary text-5xl" />
           <div className="sm:text-center md:text-left flex items-center justify-between w-full">
             <h2 className="text-xl text-[#1a1a1a]">
               Total Users
             </h2>
-            <h2 className="text-2xl font-medium text-[#1a1a1a]">
+            <h2 className="text-4xl font-semibold text-[#1a1a1a]">
               {userData?.totalUser ? userData?.totalUser : "00"}
             </h2>
           </div>
         </div>
-        <div className="mt-5 border border-primary sm:p-10 p-5 rounded-xl flex sm:flex-col md:flex-row items-center gap-8">
+        <div className="mt-5 border border-[#f5edff] sm:p-10 p-5 rounded-xl flex sm:flex-col md:flex-row items-center gap-4">
           {/* <img src={Patient} alt="Total Users" className="w-16 sm:w-20 md:w-24" /> */}
           <FaUsers className="text-primary text-5xl" />
           <div className="sm:text-center md:text-left flex items-center justify-between w-full">
             <h2 className="text-xl text-[#1a1a1a]">
               Recent Users
             </h2>
-            <h2 className="text-2xl font-medium text-[#1a1a1a]">
+            <h2 className="text-4xl font-semibold text-[#1a1a1a]">
               {totalUser?.totalUser ? totalUser?.totalUser : "00"}
             </h2>
           </div>

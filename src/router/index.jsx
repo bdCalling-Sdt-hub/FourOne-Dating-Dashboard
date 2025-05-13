@@ -20,6 +20,7 @@ import Admins from "../dashboardMenu/sidebarMenu/Admins/Admins";
 import Adminchangepassword from "../dashboardMenu/sidebarMenu/Adminchangepassword/Adminchangepassword";
 import Subscription from "../dashboardHome/Subscription";
 import ViewSubscription from "../dashboardHome/ViewSubscription";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -41,14 +42,16 @@ export const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <Main />,
+    element:
+      <PrivateRoute>
+        <Main />
+      </PrivateRoute>
+    ,
     children: [
       {
         path: "home",
         element: (
-          // <PrivateRoute>
           <DashboardHome />
-          // </PrivateRoute>
         ),
       },
       {
