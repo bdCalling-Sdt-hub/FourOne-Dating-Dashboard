@@ -123,6 +123,13 @@ const Header = () => {
 
   const baseUrl = url;
 
+
+  const slides = [
+    <div style={{ backgroundColor: '#FF6F61', height: '300px' }}>Slide 1</div>,
+    <div style={{ backgroundColor: '#6B5B95', height: '300px' }}>Slide 2</div>,
+    <div style={{ backgroundColor: '#88B04B', height: '300px' }}>Slide 3</div>
+  ];
+
   return (
     <div className="sm:w-auto w-full bg-white px-5">
       <Toaster reverseOrder={false} />
@@ -142,11 +149,15 @@ const Header = () => {
         <Link to={"/dashboard/profile"} className=" lg:col-span-1 flex items-center  md:justify-end sm:flex-row flex-col gap-5  p-5 min-w-96 cursor-pointer">
           <div className="text-right ">
             <h3 className="text-2xl font-semibold ">{profile?.data?.attributes?.user?.fullName}</h3>
-            <p className="font-semibold">{profile?.data?.attributes?.user?.role}</p>
+            <p className="font-semibold capitalize">{profile?.data?.attributes?.user?.role}</p>
           </div>
           <img className="w-14  rounded-full object-cover" src={profile?.data?.attributes?.user?.profileImage ? `${baseUrl}${profile?.data?.attributes?.user?.profileImage}` : '/Dashboard/User_Profile.png'} alt="Profile" />
         </Link>
       </div>
+
+
+
+
 
     </div>
   );

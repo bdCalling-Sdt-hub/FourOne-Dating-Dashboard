@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Checkbox } from "antd"; // Keeping Ant Design Checkbox for styling consistency
+import { Checkbox, Spin } from "antd"; // Keeping Ant Design Checkbox for styling consistency
 import toast, { Toaster } from "react-hot-toast";
 import logo from "./../../public/image/logo.png";
 import { useAdminLoginMutation } from "../redux/features/auth/Login";
+import { Spinner } from "@react-pdf-viewer/core";
+
+import { LoadingOutlined } from '@ant-design/icons';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -29,8 +32,6 @@ const Login = () => {
       const res = await adminLogin({ email, password }).unwrap();
       console.log(res);
       if (res?.code === 200) {
-
-
         toast.success(res?.message);
         localStorage.setItem("email", email);
         localStorage.setItem("token", res?.data?.attributes?.tokens?.access?.token);
@@ -40,6 +41,7 @@ const Login = () => {
         setError("Invalid login credentials");
       }
     } catch (err) {
+      toast.error(err?.data?.message || "Login failed. Please try again.");
       setError(err?.data?.message || "Login failed. Please try again.");
     }
   };
@@ -88,7 +90,15 @@ const Login = () => {
               <Link className="text-white float-right" to="/forgotpassword">Forgot Password?</Link>
             </div>
 
-            <button className="block border border-[#6d37b5] py-3 w-full px-3 rounded-lg bg-[#6d37b5] text-white font-semibold mt-5" type="submit">Login</button>
+            <button type="submit" class="block border border-[#6d37b5] py-3 w-full px-3 rounded-lg bg-[#6d37b5] text-white font-semibold mt-5" >
+              Login
+
+              {
+                isLoading &&
+                <Spin className="ml-2" indicator={<LoadingOutlined spin />} size="small" />
+              }
+            </button>
+
           </form>
         </div>
       </div>

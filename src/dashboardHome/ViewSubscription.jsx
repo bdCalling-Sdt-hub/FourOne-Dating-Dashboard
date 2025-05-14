@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Modal } from "antd";
 import { useCreateSubscriptionMutation, useGetSubscriptionQuery, useUpdateSubscriptionMutation } from "../redux/features/subscription/subscription";
-import toast from "react-hot-toast";
-import { ToastContainer } from "react-toastify";
+
+import { toast, ToastContainer } from "react-toastify";
 import { MdOutlineDeleteForever } from "react-icons/md";
 import { FaRegEdit } from "react-icons/fa";
 
@@ -78,7 +78,7 @@ const ViewSubscription = () => {
 
     return (
         <div className="p-6 min-h-screen">
-            <ToastContainer position="top-center" theme="colored" />
+            <ToastContainer position="top-right" theme="colored" />
             {/* ✅ Header Section */}
             <div className="flex justify-between items-center mb-5">
                 <h2 className="text-2xl font-semibold text-[#1a1a1a]">All Subscriptions</h2>
@@ -105,7 +105,7 @@ const ViewSubscription = () => {
                                 <td className="px-4 py-3">{++index}</td>
                                 <td className="px-4 py-3">{sub.title}</td>
                                 <td className="px-4 py-3">{sub.amount}$</td>
-                                <td className="px-4 py-3">{sub.limitation}</td>
+                                <td className="px-4 py-3 capitalize">{sub.limitation}</td>
                                 <td className="px-4 py-3 flex items-center gap-1">
                                     <button onClick={() => showEditModal(sub)} className="bg-[#5c3c92] text-white p-2 rounded-lg flex items-center gap-2 font-semibold">
                                         <FaRegEdit className="" />Edit

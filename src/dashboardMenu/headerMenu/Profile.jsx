@@ -32,10 +32,10 @@ const Profile = () => {
                 ? profile?.data?.attributes?.user?.fullName
                 : "test"}
             </h1>
-            <p className="text-lg md:text-xl">
+            <p className="text-lg md:text-xl capitalize">
               {profile?.data?.attributes?.user?.role
                 ? profile?.data?.attributes?.user?.role
-                : "admin"}
+                : "Admin"}
             </p>
           </div>
         </div>
