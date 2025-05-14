@@ -73,11 +73,12 @@ const ViewSubscription = () => {
 
 
     const handleDelete = async (id) => {
-        toast.success("Subscription deleted successfully!");
+        // toast.success("Subscription deleted successfully!");
     };
 
     return (
         <div className="p-6 min-h-screen">
+            
             <ToastContainer position="top-right" theme="colored" />
             {/* ✅ Header Section */}
             <div className="flex justify-between items-center mb-5">
