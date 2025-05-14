@@ -3,6 +3,8 @@ import { Modal } from "antd";
 import { useCreateSubscriptionMutation, useGetSubscriptionQuery, useUpdateSubscriptionMutation } from "../redux/features/subscription/subscription";
 import toast from "react-hot-toast";
 import { ToastContainer } from "react-toastify";
+import { MdOutlineDeleteForever } from "react-icons/md";
+import { FaRegEdit } from "react-icons/fa";
 
 const ViewSubscription = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -69,6 +71,11 @@ const ViewSubscription = () => {
         setIsModalOpen(false);
     };
 
+
+    const handleDelete = async (id) => {
+        toast.success("Subscription deleted successfully!");
+    };
+
     return (
         <div className="p-6 min-h-screen">
             <ToastContainer position="top-center" theme="colored" />
@@ -95,14 +102,15 @@ const ViewSubscription = () => {
                     <tbody>
                         {subscriptions?.map((sub, index) => (
                             <tr key={index} className="border-b hover:bg-gray-100">
-                                <td className="px-4 py-3">{sub.id}</td>
+                                <td className="px-4 py-3">{++index}</td>
                                 <td className="px-4 py-3">{sub.title}</td>
                                 <td className="px-4 py-3">{sub.amount}$</td>
                                 <td className="px-4 py-3">{sub.limitation}</td>
-                                <td className="px-4 py-3">
-                                    <button onClick={() => showEditModal(sub)} className="text-[#5c3c92] font-semibold">
-                                        Edit
+                                <td className="px-4 py-3 flex items-center gap-1">
+                                    <button onClick={() => showEditModal(sub)} className="bg-[#5c3c92] text-white p-2 rounded-lg flex items-center gap-2 font-semibold">
+                                        <FaRegEdit className="" />Edit
                                     </button>
+                                    <button onClick={() => handleDelete(sub.id)} className="text-[#ffffff] flex items-center gap-2 font-semibold bg-red-600 p-2 ml-2 rounded-lg "><MdOutlineDeleteForever /> Delete</button>
                                 </td>
                             </tr>
                         ))}
