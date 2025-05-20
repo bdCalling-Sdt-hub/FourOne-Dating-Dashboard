@@ -26,7 +26,14 @@ const subscription = apiSlice.injectEndpoints({
             }),
             invalidatesTags: ["Subscription"], // Invalidate the "Subscription" tag when updating a subscription
         }),
+        deleteSubscription: builder.mutation({
+            query: (id) => ({
+                url: `/subscription/${id}`,
+                method: "DELETE",
+            }),
+            invalidatesTags: ["Subscription"], // Invalidate the "Subscription" tag when deleting a subscription
+        }),
     }),
 });
 
-export const { useGetSubscriptionQuery, useCreateSubscriptionMutation , useUpdateSubscriptionMutation } = subscription;
+export const { useGetSubscriptionQuery, useCreateSubscriptionMutation, useUpdateSubscriptionMutation } = subscription;

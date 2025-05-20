@@ -53,7 +53,7 @@ const ViewSubscription = () => {
         }
 
         if (isEditMode) {
-            // ✅ Update existing subscripti on
+            // ✅ Update existing subscription
             const res = await updateSubscription({ data: subscriptionData, id: currentSubscription.id });
             console.log(res);
             if (res?.data?.code == 200) {
@@ -73,7 +73,7 @@ const ViewSubscription = () => {
 
 
     const handleDelete = async (id) => {
-        toast.success("Subscription deleted  successfully!");
+        toast.success("Subscription deleted  successfully! 😃");
     };
 
     return (
