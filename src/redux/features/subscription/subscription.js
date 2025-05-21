@@ -36,4 +36,4 @@ const subscription = apiSlice.injectEndpoints({
     }),
 });
 
-export const { useGetSubscriptionQuery, useCreateSubscriptionMutation, useUpdateSubscriptionMutation } = subscription;
+export const { useGetSubscriptionQuery, useCreateSubscriptionMutation, useUpdateSubscriptionMutation , useDeleteSubscriptionMutation } = subscription;

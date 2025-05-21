@@ -66,12 +66,12 @@ export const router = createBrowserRouter([
         path: "userslist",
         element: <ApprovedUsers />,
       },
+      // {
+      //   path: "subscription",
+      //   element: <Subscription />,
+      // },
       {
         path: "subscription",
-        element: <Subscription />,
-      },
-      {
-        path: "view-subscription",
         element: <ViewSubscription />,
       },
       {
